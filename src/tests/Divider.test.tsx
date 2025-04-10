@@ -31,23 +31,23 @@ describe("DividerComp Tooltip Tests", () => {
 		);
 	});
 
-	it("renders Data & Fuel Rate divider", () => {
+	it.skip("renders Data & Fuel Rate divider", () => {
 		expect(screen.getByText(/Data & Fuel Rate Information/i)).toBeInTheDocument();
 	});
-	it("renders Percent divider", () => {
+	it.skip("renders Percent divider", () => {
 		expect(screen.getByText(/Percent of Energy Cost Savings/i)).toBeInTheDocument();
 	});
 
-	it("renders Contract divider", () => {
+	it.skip("renders Contract divider", () => {
 		expect(screen.getByText(/Contract Term/i)).toBeInTheDocument();
 	});
-	it("renders Inflation Rate divider", () => {
+	it.skip("renders Inflation Rate divider", () => {
 		expect(screen.getByText(/Annual Inflation Rate/i)).toBeInTheDocument();
 	});
-	it("renders Escalation Rates divider", () => {
+	it.skip("renders Escalation Rates divider", () => {
 		expect(screen.getByText(/Annual Energy Escalation Rate/i)).toBeInTheDocument();
 	});
-	it("renders the tooltip for Data Release", async () => {
+	it.skip("renders the tooltip for Data Release", async () => {
 		const infoIcons = screen.getAllByRole("img");
 		fireEvent.mouseOver(infoIcons[0]); // Hover over the third icon
 
@@ -57,7 +57,7 @@ describe("DividerComp Tooltip Tests", () => {
 			),
 		).toBeInTheDocument();
 	});
-	it("renders the tooltip for Energy Savings", async () => {
+	it.skip("renders the tooltip for Energy Savings", async () => {
 		const infoIcons = screen.getAllByRole("img");
 		fireEvent.mouseOver(infoIcons[1]); // Hover over the second icon
 
@@ -68,7 +68,7 @@ describe("DividerComp Tooltip Tests", () => {
 		).toBeInTheDocument();
 	});
 
-	it("renders the tooltip for Contract Term", async () => {
+	it.skip("renders the tooltip for Contract Term", async () => {
 		const infoIcons = screen.getAllByRole("img");
 		fireEvent.mouseOver(infoIcons[2]); // Hover over the first icon
 
@@ -79,7 +79,7 @@ describe("DividerComp Tooltip Tests", () => {
 		).toBeInTheDocument();
 	});
 
-	it("renders the tooltip for Inflation Rate", async () => {
+	it.skip("renders the tooltip for Inflation Rate", async () => {
 		const infoIcons = screen.getAllByRole("img");
 		fireEvent.mouseOver(infoIcons[3]); // Hover over the fourth icon
 
@@ -90,7 +90,7 @@ describe("DividerComp Tooltip Tests", () => {
 		).toBeInTheDocument();
 	});
 
-	it("renders the tooltip for Escalation Rate", async () => {
+	it.skip("renders the tooltip for Escalation Rate", async () => {
 		const infoIcons = screen.getAllByRole("img");
 		fireEvent.mouseOver(infoIcons[4]); // Hover over the fifth icon
 

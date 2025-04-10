@@ -5,6 +5,8 @@ import { PropsWithChildren, useEffect, useMemo, type Key } from "react";
 import { Observable, type Subject } from "rxjs";
 
 export type NumberInputProps<T extends Key> = {
+	dataTestId: string;
+	name: string;
 	className?: string;
 	min?: number;
 	max?: number;
@@ -23,11 +25,13 @@ export type NumberInputProps<T extends Key> = {
 const { Title } = Typography;
 
 export default function NumberInput<T extends number>({
+	dataTestId,
 	label,
 	value$,
 	wire,
 	tooltip,
 	className,
+	name,
 	addOn,
 	min,
 	max,
@@ -56,6 +60,8 @@ export default function NumberInput<T extends number>({
 				{label ? <Title level={5}>{label}</Title> : ""}
 				<InputNumber
 					{...inputProps}
+					data-testid={dataTestId}
+					name={name}
 					className={"w-24 " + className}
 					addonAfter={addOn || "%"}
 					min={min}

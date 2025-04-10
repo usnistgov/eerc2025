@@ -22,6 +22,7 @@ export const CostSavingsTotal: React.FC<CostSavingsTotalProps> = ({ totalSum$ })
 		<Space className="flex flex-col justify-center mt-5">
 			<Title level={5}>Total</Title>
 			<InputNumber
+				data-testid="total"
 				className="w-24"
 				addonAfter="%"
 				min={0}

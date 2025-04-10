@@ -321,6 +321,8 @@ function Form() {
 					<Space className="flex justify-center">
 						<Coal coal$={coalChange$} sector$={sectorChange$} />
 						<NumberInput
+							dataTestId="oil"
+							name="oil"
 							value$={oilChange$}
 							wire={oilChange$}
 							label="Fuel Oil"
@@ -328,6 +330,8 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to fuel oil."
 						/>
 						<NumberInput
+							dataTestId="electricity"
+							name="electricity"
 							value$={electricityChange$}
 							wire={electricityChange$}
 							label="Electricity"
@@ -335,6 +339,8 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to electricity."
 						/>
 						<NumberInput
+							dataTestId="naturalGas"
+							name="naturalGas"
 							value$={gasChange$}
 							wire={gasChange$}
 							label="Natural Gas"
@@ -342,6 +348,8 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to natural gas."
 						/>
 						<NumberInput
+							dataTestId="residualOil"
+							name="residualOil"
 							value$={residualChange$}
 							wire={residualChange$}
 							label="Residual"
@@ -368,6 +376,8 @@ function Form() {
 							tooltipPlacement="left"
 						/>
 						<NumberInput
+							dataTestId="contractTerm"
+							name="contractTerm"
 							className={"w-28"}
 							value$={contractTermChange$}
 							wire={contractTermChange$}
@@ -408,6 +418,8 @@ function Form() {
 					/>
 					<Space className="flex justify-center">
 						<NumberInput
+							dataTestId="inflationRate"
+							name="inflationRate"
 							value$={inflationRateChange$}
 							wire={inflationRateChange$}
 							min={0}

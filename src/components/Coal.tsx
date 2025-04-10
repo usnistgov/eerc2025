@@ -19,6 +19,7 @@ export const Coal: React.FC<{
 		<>
 			{sector === SectorType.INDUSTRIAL ? (
 				<NumberInput
+					name="coal"
 					value$={coal$}
 					wire={coal$}
 					label="Coal"
