@@ -19,6 +19,7 @@ export const Coal: React.FC<{
 		<>
 			{sector === SectorType.INDUSTRIAL ? (
 				<NumberInput
+					dataTestId="coal"
 					name="coal"
 					value$={coal$}
 					wire={coal$}

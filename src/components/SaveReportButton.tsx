@@ -7,8 +7,9 @@ import "./styles.css";
 export const SaveReportButton: React.FC<{
 	realRate$: Observable<number>;
 	onClick: React.MouseEventHandler<HTMLButtonElement>;
+	dataTestId: string;
 }> = (props) => {
-	const { realRate$, onClick } = props;
+	const { realRate$, onClick, dataTestId } = props;
 	const [real, setReal] = useState<number>(0);
 	useEffect(() => {
 		const subscription = realRate$.subscribe(setReal); // Subscribe to sector observable
@@ -21,6 +22,7 @@ export const SaveReportButton: React.FC<{
 				icon={<FilePdfOutlined />}
 				disabled={real == 0}
 				onClick={onClick}
+				data-test-id={dataTestId}
 			>
 				Save Report (PDF)
 			</Button>

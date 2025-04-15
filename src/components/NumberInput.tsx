@@ -60,7 +60,7 @@ export default function NumberInput<T extends number>({
 				{label ? <Title level={5}>{label}</Title> : ""}
 				<InputNumber
 					{...inputProps}
-					data-testid={dataTestId}
+					data-test-id={dataTestId}
 					name={name}
 					className={"w-24 " + className}
 					addonAfter={addOn || "%"}

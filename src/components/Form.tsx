@@ -269,6 +269,7 @@ function Form() {
 					<Space className="flex justify-center">
 						<Dropdown
 							className={"w-44"}
+							dataTestId="data-release-year"
 							options={Object.values(DataYearType)}
 							value$={dataYearChange$}
 							wire={dataYearChange$}
@@ -280,6 +281,7 @@ function Form() {
 						/>
 						<Dropdown
 							className={"w-44"}
+							dataTestId="sector"
 							placeholder="Select Sector"
 							options={Object.values(SectorType)}
 							value$={sectorChange$}
@@ -291,6 +293,7 @@ function Form() {
 						/>
 						<Dropdown
 							className={"w-44"}
+							dataTestId="state"
 							placeholder="Select State"
 							options={Object.values(StateType)}
 							defaultValue={StateType.State}
@@ -339,7 +342,7 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to electricity."
 						/>
 						<NumberInput
-							dataTestId="naturalGas"
+							dataTestId="natural-gas"
 							name="naturalGas"
 							value$={gasChange$}
 							wire={gasChange$}
@@ -348,7 +351,7 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to natural gas."
 						/>
 						<NumberInput
-							dataTestId="residualOil"
+							dataTestId="residual-oil"
 							name="residualOil"
 							value$={residualChange$}
 							wire={residualChange$}
@@ -366,6 +369,7 @@ function Form() {
 					<Space className="flex justify-center">
 						<Dropdown
 							className={"w-64"}
+							dataTestId="start-date"
 							placeholder="Start Date"
 							options={Object.values(ContractStartDateType)}
 							value$={contractStartDateChange$}
@@ -376,7 +380,7 @@ function Form() {
 							tooltipPlacement="left"
 						/>
 						<NumberInput
-							dataTestId="contractTerm"
+							dataTestId="contract-term"
 							name="contractTerm"
 							className={"w-28"}
 							value$={contractTermChange$}
@@ -418,7 +422,7 @@ function Form() {
 					/>
 					<Space className="flex justify-center">
 						<NumberInput
-							dataTestId="inflationRate"
+							dataTestId="inflation-rate"
 							name="inflationRate"
 							value$={inflationRateChange$}
 							wire={inflationRateChange$}
@@ -439,10 +443,10 @@ function Form() {
 					/>
 					<Space className="flex flex-col justify-center">
 						<Space>
-							<RatesDisplay title="Real Rate" displayValue$={realRate$} />
-							<RatesDisplay title="Nominal Rate" displayValue$={nominalRate$} />
+							<RatesDisplay dataTestId="real-rate" title="Real Rate" displayValue$={realRate$} />
+							<RatesDisplay dataTestId="nominal-rate" title="Nominal Rate" displayValue$={nominalRate$} />
 						</Space>
-						<SaveReportButton realRate$={realRate$} onClick={handlePdfClick} />
+						<SaveReportButton dataTestId="pdf-btn" realRate$={realRate$} onClick={handlePdfClick} />
 					</Space>
 				</Content>
 			</Space>
