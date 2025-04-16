@@ -431,7 +431,11 @@ function Form() {
 							step={0.1}
 						/>
 						<Tooltip placement="right" title="Reset to default inflation rate">
-							<Button className="flex flex-col justify-center blue" onClick={resetInflationRate}>
+							<Button
+								className="flex flex-col justify-center blue"
+								onClick={resetInflationRate}
+								data-test-id={"reset-inflation"}
+							>
 								<RedoOutlined />
 							</Button>
 						</Tooltip>

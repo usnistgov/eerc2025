@@ -100,8 +100,8 @@ describe("Form", () => {
 					.trigger("mouseover") // simulate hover
 					.get(".ant-tooltip-inner")
 					.should("exist")
-					.and("be.visible") // Ensure tooltip is visible
-					.and("contain.text", expectedTexts?.[index]); // Check the tooltip text
+					.and("be.visible")
+					.and("contain.text", expectedTexts?.[index]);
 			});
 		});
 	});
@@ -129,6 +129,155 @@ describe("Form", () => {
 			cy.get("div[data-test-id='sector']").should("exist").click();
 			cy.get(".ant-select-item").contains(SectorType.INDUSTRIAL).click();
 			cy.get("input[data-test-id='coal']").should("exist").and("be.visible").and("have.value", 0);
+		});
+	});
+
+	describe("reset button should reset the inflation rate based on data release year", () => {
+		it("should increment the inflation rate value by 0.2 and reset to 2.9", () => {
+			// Click the increase button
+			cy.get("input[data-test-id='inflation-rate']")
+				.should("exist")
+				.click()
+				.trigger("wheel", { deltaY: -100 })
+				.trigger("wheel")
+				.trigger("wheel", { deltaY: -100 });
+
+			// Verify the updated value
+			cy.get("input[data-test-id='inflation-rate']").should("exist").and("have.value", "3.0"); // Check if the value is now 3.0
+
+			cy.get("button[data-test-id='reset-inflation']").should("exist").click();
+			cy.get("input[data-test-id='inflation-rate']")
+				.should("exist")
+				.and("have.value", inflationRates[DataYearType.CURRENT]); // Check if the value is now reset to 2.9
+		});
+
+		it("should increment the inflation rate value by 0.2 and reset to 2.3", () => {
+			cy.get("div[data-test-id='data-release-year']").should("exist").click();
+			cy.get(".ant-select-item").contains(DataYearType.PREVIOUS.toString()).click();
+			cy.get("input[data-test-id='inflation-rate']").should("exist").and("have.value", "2.3");
+
+			// Change the inflation rate
+			cy.get("input[data-test-id='inflation-rate']")
+				.should("exist")
+				.click()
+				.trigger("wheel", { deltaY: -100 })
+				.trigger("wheel")
+				.trigger("wheel", { deltaY: -100 });
+
+			// Verify the updated value
+			cy.get("input[data-test-id='inflation-rate']").should("exist").and("have.value", "2.4"); // Check if the value is now 2.4
+
+			cy.get("button[data-test-id='reset-inflation']").should("exist").click();
+			cy.get("input[data-test-id='inflation-rate']").should("exist").and("have.value", "2.3"); // Check if the value is now reset to 2.3
+		});
+	});
+
+	describe("total should add upto 100 without coal", () => {
+		it("should set the percentage savings value to 25 each", () => {
+			// Click the increase button
+			cy.get("input[data-test-id='oil']").should("exist").clear().type("25").should("have.value", "25");
+			cy.get("input[data-test-id='electricity']").should("exist").clear().type("25").should("have.value", "25");
+			cy.get("input[data-test-id='natural-gas']").should("exist").clear().type("25").should("have.value", "25");
+			cy.get("input[data-test-id='residual-oil']").should("exist").clear().type("25").should("have.value", "25");
+
+			// Verify the total to be 100
+			cy.get("input[data-test-id='total']").should("exist").and("be.disabled").and("have.value", 100);
+		});
+	});
+
+	describe("total should add upto 100 with coal", () => {
+		it("should set the percentage savings value to 20 each", () => {
+			// Coal is visible
+			cy.get("div[data-test-id='sector']").should("exist").click();
+			cy.get(".ant-select-item").contains(SectorType.INDUSTRIAL).click();
+			cy.get("input[data-test-id='coal']").should("exist").and("be.visible").and("have.value", 0);
+
+			// Set the percentage savings for each fuel type
+			cy.get("input[data-test-id='coal']").should("exist").clear().type("20").should("have.value", "20");
+			cy.get("input[data-test-id='oil']").should("exist").clear().type("20").should("have.value", "20");
+			cy.get("input[data-test-id='electricity']").should("exist").clear().type("20").should("have.value", "20");
+			cy.get("input[data-test-id='natural-gas']").should("exist").clear().type("20").should("have.value", "20");
+			cy.get("input[data-test-id='residual-oil']").should("exist").clear().type("20").should("have.value", "20");
+
+			// Verify the total to be 100
+			cy.get("input[data-test-id='total']").should("exist").and("be.disabled").and("have.value", 100);
+		});
+	});
+
+	describe("escalation rates should be calculated correctly based on user inputs with coal", () => {
+		it("should set the percentage savings value to for each source", () => {
+			// select sector
+			cy.get("div[data-test-id='sector']").should("exist").click();
+			cy.get(".ant-select-item").contains(SectorType.INDUSTRIAL).click();
+			cy.get("input[data-test-id='coal']").should("exist").and("be.visible").and("have.value", 0);
+
+			// select state
+			cy.get("div[data-test-id='state']").should("exist").click();
+			cy.get(".ant-select-item").contains(StateType.CA).click();
+
+			// Set the percentage savings for each fuel type
+			cy.get("input[data-test-id='coal']").should("exist").clear().type("12").should("have.value", "12");
+			cy.get("input[data-test-id='oil']").should("exist").clear().type("27").should("have.value", "27");
+			cy.get("input[data-test-id='electricity']").should("exist").clear().type("33").should("have.value", "33");
+			cy.get("input[data-test-id='natural-gas']").should("exist").clear().type("18").should("have.value", "18");
+			cy.get("input[data-test-id='residual-oil']").should("exist").clear().type("10").should("have.value", "10");
+
+			// Verify the total to be 100
+			cy.get("input[data-test-id='total']").should("exist").and("be.disabled").and("have.value", 100);
+
+			// verify the correct calculation of the escalation rates
+			cy.get("div[data-test-id='real-rate']").should("exist").should("contain.text", "-2.20");
+			cy.get("div[data-test-id='nominal-rate']").should("exist").should("contain.text", "0.64");
+		});
+	});
+
+	describe("escalation rates should be calculated correctly based on user inputs without coal & pdf downloaded", () => {
+		it("should set the percentage savings value to for each source", () => {
+			// change data release year
+			cy.get("div[data-test-id='data-release-year']").should("exist").click();
+			cy.get(".ant-select-item").contains(DataYearType.PREVIOUS.toString()).click();
+			cy.get("input[data-test-id='inflation-rate']").should("exist").and("have.value", "2.3");
+
+			// select sector
+			cy.get("div[data-test-id='sector']").should("exist").click();
+			cy.get(".ant-select-item").contains(SectorType.COMMERCIAL).click();
+			cy.get("input[data-test-id='coal']").should("not.exist");
+
+			// select state
+			cy.get("div[data-test-id='state']").should("exist").click().type("WY").type("{enter}");
+
+			// change contract term
+			cy.get("input[data-test-id='contract-term']")
+				.should("exist")
+				.clear({ force: true })
+				.type("25")
+				.should("have.value", "25");
+
+			// Set the percentage savings for each fuel type
+			cy.get("input[data-test-id='oil']").should("exist").clear().type("24").should("have.value", "24");
+			cy.get("input[data-test-id='electricity']").should("exist").clear().type("37").should("have.value", "37");
+			cy.get("input[data-test-id='natural-gas']").should("exist").clear().type("13").should("have.value", "13");
+			cy.get("input[data-test-id='residual-oil']").should("exist").clear().type("26").should("have.value", "26");
+
+			// Verify the total to be 100
+			cy.get("input[data-test-id='total']").should("exist").and("be.disabled").and("have.value", 100);
+
+			// change contract start date
+			cy.get("div[data-test-id='start-date']").should("exist").click();
+			cy.get(".ant-select-item").contains(ContractStartDateType.CURRENT3.toString()).click();
+
+			// verify the correct calculation of the escalation rates
+			cy.get("div[data-test-id='real-rate']").should("exist").should("contain.text", "0.30");
+			cy.get("div[data-test-id='nominal-rate']").should("exist").should("contain.text", "2.60");
+
+			// Click the button to generate the PDF
+			cy.get("button[data-test-id='pdf-btn']").should("exist").and("not.be.disabled").click();
+
+			// Wait for a moment to ensure the PDF has time to generate
+			cy.wait(2000);
+
+			// Check for the presence of the PDF file in the downloads folder
+			cy.readFile("cypress/downloads/EERC Report.pdf").should("exist");
 		});
 	});
 });

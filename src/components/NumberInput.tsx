@@ -72,6 +72,7 @@ export default function NumberInput<T extends number>({
 					defaultValue={defaultValue}
 					status={status}
 					step={step || 1}
+					changeOnWheel
 				/>
 			</Tooltip>
 		</Space>
