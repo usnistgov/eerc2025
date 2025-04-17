@@ -9,6 +9,7 @@ const { Title } = Typography;
 type DropdownProps<T extends Key> = {
 	className?: string;
 	label?: string;
+	dataTestId?: string;
 	options: Observable<T[]> | T[];
 	value$: Observable<T>;
 	wire: Subject<T>;
@@ -28,6 +29,7 @@ export default function Dropdown<T extends Key>({
 	tooltip,
 	tooltipPlacement,
 	label,
+	dataTestId,
 	...selectProps
 }: PropsWithChildren<DropdownProps<T>> & Omit<SelectProps, "onChange" | "value" | "options">) {
 	const { change$, change, useValue, useOptions } = useMemo(() => {
@@ -47,7 +49,7 @@ export default function Dropdown<T extends Key>({
 	return (
 		<Tooltip placement={tooltipPlacement} title={tooltip}>
 			{label && <Title level={5}>{label}</Title>}
-			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps}>
+			<Select onChange={(value) => change(value)} value={useValue()} {...selectProps} data-test-id={dataTestId}>
 				{useOptions().map((option) => (
 					<Select.Option key={option} value={option}>
 						{option.toString()}

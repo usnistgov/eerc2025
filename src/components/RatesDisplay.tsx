@@ -5,9 +5,10 @@ import { Observable } from "rxjs";
 interface RatesDisplayProps {
 	title: string;
 	displayValue$: Observable<number>;
+	dataTestId: string;
 }
 
-const RatesDisplay: React.FC<RatesDisplayProps> = React.memo(({ title, displayValue$ }) => {
+const RatesDisplay: React.FC<RatesDisplayProps> = React.memo(({ title, displayValue$, dataTestId }) => {
 	const [displayValue, setDisplayValue] = useState(0);
 
 	useEffect(() => {
@@ -20,6 +21,7 @@ const RatesDisplay: React.FC<RatesDisplayProps> = React.memo(({ title, displayVa
 			title={title}
 			value={displayValue.toFixed(2)}
 			suffix="%"
+			data-test-id={dataTestId}
 		/>
 	);
 });

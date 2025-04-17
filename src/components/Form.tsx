@@ -269,6 +269,7 @@ function Form() {
 					<Space className="flex justify-center">
 						<Dropdown
 							className={"w-44"}
+							dataTestId="data-release-year"
 							options={Object.values(DataYearType)}
 							value$={dataYearChange$}
 							wire={dataYearChange$}
@@ -280,6 +281,7 @@ function Form() {
 						/>
 						<Dropdown
 							className={"w-44"}
+							dataTestId="sector"
 							placeholder="Select Sector"
 							options={Object.values(SectorType)}
 							value$={sectorChange$}
@@ -291,6 +293,7 @@ function Form() {
 						/>
 						<Dropdown
 							className={"w-44"}
+							dataTestId="state"
 							placeholder="Select State"
 							options={Object.values(StateType)}
 							defaultValue={StateType.State}
@@ -321,6 +324,8 @@ function Form() {
 					<Space className="flex justify-center">
 						<Coal coal$={coalChange$} sector$={sectorChange$} />
 						<NumberInput
+							dataTestId="oil"
+							name="oil"
 							value$={oilChange$}
 							wire={oilChange$}
 							label="Fuel Oil"
@@ -328,6 +333,8 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to fuel oil."
 						/>
 						<NumberInput
+							dataTestId="electricity"
+							name="electricity"
 							value$={electricityChange$}
 							wire={electricityChange$}
 							label="Electricity"
@@ -335,6 +342,8 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to electricity."
 						/>
 						<NumberInput
+							dataTestId="natural-gas"
+							name="naturalGas"
 							value$={gasChange$}
 							wire={gasChange$}
 							label="Natural Gas"
@@ -342,6 +351,8 @@ function Form() {
 							tooltip="Percentage of energy cost savings in dollars that is attributable to natural gas."
 						/>
 						<NumberInput
+							dataTestId="residual-oil"
+							name="residualOil"
 							value$={residualChange$}
 							wire={residualChange$}
 							label="Residual"
@@ -358,6 +369,7 @@ function Form() {
 					<Space className="flex justify-center">
 						<Dropdown
 							className={"w-64"}
+							dataTestId="start-date"
 							placeholder="Start Date"
 							options={Object.values(ContractStartDateType)}
 							value$={contractStartDateChange$}
@@ -368,6 +380,8 @@ function Form() {
 							tooltipPlacement="left"
 						/>
 						<NumberInput
+							dataTestId="contract-term"
+							name="contractTerm"
 							className={"w-28"}
 							value$={contractTermChange$}
 							wire={contractTermChange$}
@@ -408,6 +422,8 @@ function Form() {
 					/>
 					<Space className="flex justify-center">
 						<NumberInput
+							dataTestId="inflation-rate"
+							name="inflationRate"
 							value$={inflationRateChange$}
 							wire={inflationRateChange$}
 							min={0}
@@ -415,7 +431,11 @@ function Form() {
 							step={0.1}
 						/>
 						<Tooltip placement="right" title="Reset to default inflation rate">
-							<Button className="flex flex-col justify-center blue" onClick={resetInflationRate}>
+							<Button
+								className="flex flex-col justify-center blue"
+								onClick={resetInflationRate}
+								data-test-id={"reset-inflation"}
+							>
 								<RedoOutlined />
 							</Button>
 						</Tooltip>
@@ -427,10 +447,10 @@ function Form() {
 					/>
 					<Space className="flex flex-col justify-center">
 						<Space>
-							<RatesDisplay title="Real Rate" displayValue$={realRate$} />
-							<RatesDisplay title="Nominal Rate" displayValue$={nominalRate$} />
+							<RatesDisplay dataTestId="real-rate" title="Real Rate" displayValue$={realRate$} />
+							<RatesDisplay dataTestId="nominal-rate" title="Nominal Rate" displayValue$={nominalRate$} />
 						</Space>
-						<SaveReportButton realRate$={realRate$} onClick={handlePdfClick} />
+						<SaveReportButton dataTestId="pdf-btn" realRate$={realRate$} onClick={handlePdfClick} />
 					</Space>
 				</Content>
 			</Space>
