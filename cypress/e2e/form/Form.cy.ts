@@ -257,7 +257,7 @@ describe("Form", () => {
 			cy.get("input[data-test-id='oil']").should("exist").clear().type("24").should("have.value", "24");
 			cy.get("input[data-test-id='electricity']").should("exist").clear().type("37").should("have.value", "37");
 			cy.get("input[data-test-id='natural-gas']").should("exist").clear().type("13").should("have.value", "13");
-			cy.get("input[data-test-id='residual-oil']").should("exist").clear().type("26").should("have.value", "26");
+			cy.get("input[data-test-id='residual-oil']").should("exist").clear().type("26").should("have.value", "26"); // cypress freezes at this test
 
 			// Verify the total to be 100
 			cy.get("input[data-test-id='total']").should("exist").and("be.disabled").and("have.value", 100);
